@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IEEE Research Paper Template</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="paper">
+    <header class="paper-header">
+      <p class="paper-label">IEEE TRANSACTIONS ON EXAMPLE SUBJECT, VOL. XX, NO. X, MONTH 20XX</p>
+      <h1>Research Paper Title Goes Here: Use Title Case and Keep It Concise</h1>
+      <p class="authors">First A. Author<sup>1</sup>, Second B. Author<sup>2</sup>, and Third C. Author<sup>1</sup></p>
+      <p class="affiliations"><sup>1</sup>Department of Example Studies, Example University, City, Country<br><sup>2</sup>Research Laboratory, Example Institute, City, Country</p>
+      <p class="corresponding"><em>Corresponding author: First A. Author (e-mail: author@example.edu).</em></p>
+    </header>
+
+    <section class="abstract-block">
+      <p><strong>Abstract—</strong> This template demonstrates a clear structure for an IEEE-style research paper using HTML and CSS. Replace this sample text with a concise summary of the research problem, approach, principal results, and contribution. The abstract should stand on its own and avoid citations, unexplained abbreviations, and footnotes.</p>
+      <p class="keywords"><strong>Index Terms—</strong> IEEE format, research paper, sample template, typesetting, web layout.</p>
+    </section>
+
+    <div class="columns">
+      <section>
+        <h2 class="section-title">I. INTRODUCTION</h2>
+        <p>Research papers communicate a problem, a method for addressing it, and evidence that supports the authors’ conclusions. Begin by describing the context and explaining why the problem matters. Then summarize the relevant background and state the specific contribution of this work.</p>
+        <p>This page is a starting point. Replace the sample paragraphs, author information, references, and figure captions with material for your own study. Use numbered section headings and cite sources in the text with bracketed numbers, such as <span class="citation">[1]</span>. The introduction normally moves from a broad description of the field to a precise statement of the problem, helping readers understand both the context and the paper’s scope.</p>
+        <h3 class="subsection-title">A. Motivation and Contributions</h3>
+        <p>State the research gap and list the paper’s contributions in a short, easy-to-follow passage. For example, a study may introduce a new method, assemble a useful dataset, or provide a careful comparison of existing approaches. Keep terminology consistent throughout the paper. Define abbreviations when they first appear, even when they are common within a particular field.</p>
+        <p>End the introduction with a brief guide to the remaining sections. This gives readers a map of the paper: background and prior work come first, followed by the method, experimental design, results, and conclusions.</p>
+        <h2 class="section-title">II. RELATED WORK</h2>
+        <p>Discuss prior work by topic or method, and explain how it relates to the present study. A useful review compares assumptions, data, evaluation methods, and limitations rather than listing papers one by one. Cite original sources and ensure that every in-text citation has a matching entry in the references.</p>
+        <h3 class="subsection-title">A. Background and Research Gap</h3>
+        <p>Organize the literature into a few meaningful themes. For each theme, identify the main techniques and the questions they leave open. Explain where the proposed work fits and how its aims differ from earlier studies. Avoid claims of novelty that are broader than the evidence supports.</p>
+        <figure class="figure">
+          <div class="figure-art" role="img" aria-label="Placeholder diagram showing a three-stage research workflow">
+            <div class="flow-box">Input data</div><span class="flow-arrow">→</span><div class="flow-box">Proposed method</div><span class="flow-arrow">→</span><div class="flow-box">Evaluation</div>
+          </div>
+          <figcaption><strong>Fig. 1.</strong> Example workflow diagram. Replace this CSS illustration with a figure relevant to your study.</figcaption>
+        </figure>
+        <h2 class="section-title">III. PROPOSED METHOD</h2>
+        <p>Describe the proposed method in enough detail for another researcher to understand and reproduce the work. Introduce the system, model, or experimental procedure before discussing its components. State assumptions and define variables near their first use. Fig. 1 illustrates a generic sequence from input data to evaluation; the actual stages should reflect the implementation used in the study.</p>
+        <h3 class="subsection-title">A. Problem Formulation</h3>
+        <p>Let <em>x</em> denote an input observation and let <em>y</em> denote its target. The objective is to learn a mapping that minimizes the empirical loss over a set of <em>N</em> examples:</p>
+        <div class="equation"><span>J(θ) = <span class="sum">∑</span><sub>i=1</sub><sup>N</sup> ℓ(f<sub>θ</sub>(x<sub>i</sub>), y<sub>i</sub>) + λΩ(θ)</span><span class="equation-number">(1)</span></div>
+        <p>Here, <em>ℓ</em> is the task-specific loss, Ω is a regularization term, and λ controls its contribution. Explain all notation in the accompanying text.</p>
+        <h3 class="subsection-title">B. Processing and Implementation</h3>
+        <p>Describe how raw observations are cleaned and transformed before they reach the method. Record any filtering, normalization, tokenization, feature extraction, or augmentation steps. If the method contains several stages, explain the order in which they are applied and state which parameters are learned from data.</p>
+        <p>For reproducibility, report important implementation choices such as model dimensions, optimization procedure, stopping criteria, and random seed policy. Separate fixed design choices from values selected using validation data. This makes it easier to assess whether the reported comparison is fair.</p>
+      </section>
+
+      <section>
+        <h2 class="section-title">IV. EXPERIMENTAL SETUP</h2>
+        <p>Describe the data, equipment, software, and evaluation protocol. Include enough information for readers to understand the conditions under which the results were obtained. Report data splits and parameter choices where applicable. State the number of observations, the source of the data, inclusion criteria, and any known restrictions on access or reuse.</p>
+        <h3 class="subsection-title">A. Data and Reproducibility</h3>
+        <p>Explain how examples were assigned to training, validation, and test sets. If observations from the same person, device, or location could be related, describe how the split avoids leakage. Report the computing environment at a useful level of detail and make clear which parts of the experiment can be repeated from the information provided.</p>
+        <h3 class="subsection-title">B. Evaluation Metrics</h3>
+        <p>Choose metrics that match the research question. Report how each metric is calculated and state whether larger or smaller values indicate better performance.</p>
+        <table class="results-table">
+          <caption>TABLE I<br>EXAMPLE COMPARISON OF METHODS</caption>
+          <thead><tr><th>Method</th><th>Metric A</th><th>Metric B</th></tr></thead>
+          <tbody><tr><td>Baseline 1</td><td>0.812</td><td>0.764</td></tr><tr><td>Baseline 2</td><td>0.846</td><td>0.791</td></tr><tr><td>Proposed method</td><td><strong>0.891</strong></td><td><strong>0.835</strong></td></tr></tbody>
+        </table>
+        <h2 class="section-title">V. RESULTS AND DISCUSSION</h2>
+        <p>Present the main results in a logical order. Refer to each table and figure in the text, and explain the patterns that matter to the research question. Distinguish measured results from interpretation, and discuss unexpected findings as well as improvements. Table I is a compact example: define each metric, identify the strongest result, and report meaningful variation across repeated runs when available.</p>
+        <figure class="figure">
+          <div class="chart" role="img" aria-label="Placeholder bar chart comparing three methods"><div class="chart-y"><span>1.0</span><span>0.5</span><span>0.0</span></div><div class="chart-area"><div class="gridline one"></div><div class="gridline two"></div><div class="bar-group"><i style="--height:58%"></i><i style="--height:72%"></i><i style="--height:88%"></i></div><div class="chart-labels"><span>Base 1</span><span>Base 2</span><span>Proposed</span></div></div></div>
+          <figcaption><strong>Fig. 2.</strong> Example performance chart. Replace the illustrative values with measured results.</figcaption>
+        </figure>
+        <p>In Fig. 2, the illustrative bars suggest how a proposed method might compare with two baselines. In a real paper, describe the size and consistency of the observed difference and connect it to the stated objective. Avoid inferring causation from a comparison that does not control for relevant factors.</p>
+        <h3 class="subsection-title">A. Error Analysis</h3>
+        <p>Aggregate scores can hide where a method succeeds or fails. Inspect representative errors, compare performance across relevant subgroups, and consider whether the pattern points to a limitation in the data or the method. Include qualitative examples only when they support a specific claim.</p>
+        <h3 class="subsection-title">B. Limitations</h3>
+        <p>Identify constraints that affect how the results should be interpreted. Discuss dataset coverage, measurement uncertainty, computational cost, or other limitations relevant to the study.</p>
+        <h2 class="section-title">VI. CONCLUSION</h2>
+        <p>Summarize the problem, approach, and most important finding without repeating the abstract word for word. Explain what the results add to existing knowledge and state the main limitation that affects their interpretation. Close with a practical next step or a focused direction for future work.</p>
+        <p>Future studies could evaluate the method on additional datasets, examine its behavior under different operating conditions, or reduce its computational requirements. Keep these proposals specific to the evidence and limitations discussed above.</p>
+      </section>
+    </div>
+
+    <section class="acknowledgment"><h2 class="section-title">ACKNOWLEDGMENT</h2><p>The authors thank colleagues and supporting organizations for their contributions. Add funding information, grant identifiers, facility support, and other acknowledgments here, where applicable. Confirm that all named individuals have agreed to be acknowledged.</p></section>
+    <section class="references"><h2 class="section-title">REFERENCES</h2><ol>
+      <li>A. Author and B. Author, “Title of a sample journal article,” <em>IEEE Journal of Example Research</em>, vol. 10, no. 2, pp. 100–110, 2024.</li>
+      <li>C. Author, <em>Title of a Sample Book</em>. Example City: Example Press, 2022.</li>
+      <li>D. Author <em>et al.</em>, “Title of a sample conference paper,” in <em>Proc. Example International Conference</em>, 2023, pp. 25–30.</li>
+      <li>E. Author and F. Author, “A sample paper presented at a technical symposium,” in <em>Proc. Example Symposium on Computing</em>, Example City, 2021, pp. 40–46.</li>
+      <li>G. Author, “Title of an example online resource,” Example Research Group, 2020. [Online]. Available: https://example.edu/research</li>
+    </ol></section>
+    <footer class="paper-footer">Replace all example content with your own work. Check your target IEEE publication’s author instructions before submission.</footer>
+  </main>
+</body>
+</html>

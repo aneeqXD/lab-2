@@ -1,0 +1,67 @@
+@page { size: A4; margin: 16mm 15mm 18mm; }
+* { box-sizing: border-box; }
+html { background: #e8eaed; color: #111; font-family: "Times New Roman", Times, serif; }
+body { margin: 0; padding: 28px 16px; }
+.paper { max-width: 900px; min-height: 1120px; margin: 0 auto; padding: 54px 66px 44px; background: #fff; box-shadow: 0 3px 18px #0002; }
+.paper-header { text-align: center; margin-bottom: 24px; }
+.paper-label { margin: 0 0 27px; color: #555; font: 9px Arial, sans-serif; letter-spacing: .08em; }
+h1 { max-width: 680px; margin: 0 auto 17px; font-size: 25px; line-height: 1.2; font-weight: 400; }
+.authors { margin: 0 0 8px; font-size: 13px; }
+.authors sup, .affiliations sup { font-size: 9px; }
+.affiliations, .corresponding { margin: 4px 0; font-size: 10px; line-height: 1.4; }
+.corresponding { color: #333; }
+.abstract-block { margin: 0 0 19px; font-size: 10px; line-height: 1.35; text-align: justify; }
+.abstract-block p { margin: 0 0 7px; }
+.keywords { font-size: 9.5px; }
+.columns { column-count: 2; column-gap: 24px; column-rule: 0; font-size: 10px; line-height: 1.35; text-align: justify; }
+.columns > section { break-inside: auto; }
+.columns p { margin: 0 0 8px; text-indent: 1em; }
+.section-title { margin: 12px 0 7px; font-size: 11px; line-height: 1.2; text-align: center; font-weight: 400; letter-spacing: .015em; break-after: avoid; }
+.columns section:first-child .section-title:first-child, .columns section:nth-child(2) .section-title:first-child { margin-top: 0; }
+.subsection-title { margin: 10px 0 5px; font-size: 10px; font-weight: 400; font-style: italic; break-after: avoid; }
+.citation { color: inherit; }
+.figure { margin: 12px 0 10px; break-inside: avoid; text-align: center; }
+.figure-art { min-height: 94px; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 12px 4px; border: 1px solid #bbb; background: #fafafa; }
+.flow-box { min-width: 68px; padding: 9px 5px; border: 1px solid #444; background: #fff; font-size: 9px; text-align: center; }
+.flow-arrow { color: #333; font: 17px Arial, sans-serif; }
+figcaption { margin-top: 5px; font-size: 9px; line-height: 1.25; text-align: left; }
+.equation { display: flex; justify-content: space-between; align-items: center; gap: 5px; margin: 10px 0; padding: 4px 6px; font-size: 11px; text-align: center; }
+.equation-number { white-space: nowrap; }
+.sum { font-size: 18px; }
+.results-table { width: 100%; margin: 12px 0; border-collapse: collapse; font-size: 9px; text-align: center; break-inside: avoid; }
+.results-table caption { padding-bottom: 6px; font-size: 9px; line-height: 1.35; }
+.results-table th, .results-table td { padding: 5px 3px; border-bottom: 1px solid #777; }
+.results-table thead { border-top: 1px solid #333; border-bottom: 1px solid #333; }
+.results-table th { font-weight: 400; }
+.chart { height: 130px; display: flex; gap: 5px; padding: 8px 10px 20px 0; border: 1px solid #bbb; background: #fff; }
+.chart-y { display: flex; flex-direction: column; justify-content: space-between; color: #555; font: 8px Arial,sans-serif; }
+.chart-area { position: relative; flex: 1; display: flex; align-items: flex-end; justify-content: center; }
+.gridline { position: absolute; left: 0; right: 0; border-top: 1px solid #ddd; }
+.gridline.one { top: 0; }.gridline.two { top: 50%; }
+.bar-group { height: 100%; display: flex; align-items: flex-end; gap: 14px; z-index: 1; }
+.bar-group i { display: block; width: 23px; height: var(--height); background: #737f8b; border: 1px solid #49515a; }
+.bar-group i:last-child { background: #286090; }
+.chart-labels { position: absolute; top: calc(100% + 4px); left: 0; right: 0; display: flex; justify-content: center; gap: 8px; font: 7px Arial,sans-serif; }
+.acknowledgment, .references { font-size: 10px; line-height: 1.35; text-align: justify; }
+.acknowledgment { margin-top: 16px; }
+.acknowledgment p { margin: 0; }
+.references ol { margin: 0; padding-left: 22px; }
+.references li { padding-left: 3px; margin-bottom: 4px; }
+.paper-footer { margin-top: 22px; padding-top: 7px; border-top: 1px solid #bbb; color: #555; font: 8px Arial,sans-serif; text-align: center; }
+@media (max-width: 700px) {
+  body { padding: 0; background: #fff; }
+  .paper { min-height: 100vh; padding: 30px 24px; box-shadow: none; }
+  .paper-label { margin-bottom: 20px; }
+  h1 { font-size: 22px; }
+  .columns { column-count: 1; font-size: 11px; line-height: 1.45; }
+  .abstract-block { font-size: 11px; line-height: 1.45; }
+  .section-title { font-size: 12px; margin-top: 16px; }
+  .subsection-title { font-size: 11px; }
+  .results-table, figcaption { font-size: 10px; }
+}
+@media print {
+  html { background: #fff; }
+  body { padding: 0; }
+  .paper { width: 100%; max-width: none; min-height: 0; margin: 0; padding: 0; box-shadow: none; }
+  .paper-footer { display: none; }
+}

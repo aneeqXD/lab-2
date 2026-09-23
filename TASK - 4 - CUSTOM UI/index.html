@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Aneeq">
+  <meta name="description" content="Reel Cinema — pick a film, a showtime and your seats. A ticket-booking interface built with HTML and CSS only.">
+  <title>Reel Cinema — Book your seats</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--
+  HOW THE LIVE TOTAL WORKS (no JavaScript)
+  ----------------------------------------
+  <main> resets two CSS counters: "seats" and "amount".
+  Every seat / snack is a hidden checkbox followed by its <label>.
+  When a checkbox is :checked, the label does counter-increment
+  (standard seat: seats 1, amount 650 . premium seat: seats 1, amount 950 .
+  snacks: amount only). The ticket stub sits AFTER all the checkboxes in
+  the document, so its ::after pseudo-elements can print counter(seats)
+  and counter(amount). Untick a seat and the total drops instantly.
+-->
+
+  <!-- film grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============================================================ HEADER -->
+  <header class="topbar">
+    <div class="marquee" aria-hidden="true"><span>NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · </span><span>NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · NOW SHOWING · </span></div>
+    <div class="topbar-inner">
+      <a class="brand" href="#" aria-label="Reel Cinema">
+        <svg class="reel" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+          <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="3"/>
+          <circle cx="24" cy="24" r="4" fill="currentColor"/>
+          <circle cx="24" cy="11" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="36.3" cy="20" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="31.6" cy="34.5" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="16.4" cy="34.5" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="11.7" cy="20" r="4.5" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        </svg>
+        <span class="wordmark">REEL</span>
+      </a>
+      <p class="venue">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/></svg>
+        Centaurus, Islamabad
+      </p>
+      <nav class="dates" aria-label="Pick a date">
+        <input type="radio" name="date" id="d1" class="vh" checked><label for="d1"><small>Wed</small>23</label>
+        <input type="radio" name="date" id="d2" class="vh"><label for="d2"><small>Thu</small>24</label>
+        <input type="radio" name="date" id="d3" class="vh"><label for="d3"><small>Fri</small>25</label>
+        <input type="radio" name="date" id="d4" class="vh"><label for="d4"><small>Sat</small>26</label>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app">
+
+    <!-- ============================================================ NOW SHOWING -->
+    <section class="showing" aria-labelledby="ns-title">
+      <div class="section-title"><h2 id="ns-title">Now showing</h2><span class="hint">scroll → pick a film</span></div>
+
+      <div class="posters">
+        <input type="radio" name="film" id="m1" class="vh">
+        <label for="m1" class="poster p1">
+          <span class="art"><i class="sun"></i><i class="rail"></i><i class="rail r2"></i></span>
+          <span class="ptitle">Midnight<br>Express</span>
+          <span class="pmeta"><b class="rating">PG-13</b> 2h 08m · Thriller</span>
+        </label>
+
+        <input type="radio" name="film" id="m2" class="vh" checked>
+        <label for="m2" class="poster p2">
+          <span class="art"><i class="beam"></i><i class="tower"></i><i class="wave"></i></span>
+          <span class="ptitle">The Lighthouse<br>Keeper</span>
+          <span class="pmeta"><b class="rating">U</b> 1h 52m · Drama</span>
+        </label>
+
+        <input type="radio" name="film" id="m3" class="vh">
+        <label for="m3" class="poster p3">
+          <span class="art"><i class="planet"></i><i class="ring"></i><i class="stars"></i></span>
+          <span class="ptitle">Orbit</span>
+          <span class="pmeta"><b class="rating">PG</b> 2h 21m · Sci-fi</span>
+        </label>
+
+        <input type="radio" name="film" id="m4" class="vh">
+        <label for="m4" class="poster p4">
+          <span class="art"><i class="city"></i><i class="city c2"></i><i class="moon"></i></span>
+          <span class="ptitle">Karachi<br>Nights</span>
+          <span class="pmeta"><b class="rating">18</b> 1h 47m · Crime</span>
+        </label>
+
+        <input type="radio" name="film" id="m5" class="vh">
+        <label for="m5" class="poster p5">
+          <span class="art"><i class="plane"></i><i class="plane pl2"></i><i class="cloud"></i></span>
+          <span class="ptitle">Paper<br>Planes</span>
+          <span class="pmeta"><b class="rating">U</b> 1h 36m · Family</span>
+        </label>
+      </div>
+
+      <!-- one details panel per film; the checked radio above reveals it via :has() -->
+      <div class="details">
+        <article class="film f1">
+          <h3>Midnight Express</h3>
+          <p class="cast">Ahsan Khan · Sanam Saeed · Fawad Khan</p>
+          <p>A night train from Lahore to Karachi, one missing passenger and twelve hours to find out who else knows. Shot almost entirely inside a moving carriage.</p>
+        </article>
+        <article class="film f2">
+          <h3>The Lighthouse Keeper</h3>
+          <p class="cast">Nadia Jamil · Sarmad Khoosat · Bilal Abbas</p>
+          <p>After forty winters alone on the Gwadar coast, a keeper receives a letter that says the lighthouse is being switched off. He has one season to decide what to do with the light.</p>
+        </article>
+        <article class="film f3">
+          <h3>Orbit</h3>
+          <p class="cast">Mahira Khan · Ali Rehman · Sajal Aly</p>
+          <p>Two engineers on a decaying satellite must agree on a single burn before the fuel runs out. Neither of them trusts the other's maths.</p>
+        </article>
+        <article class="film f4">
+          <h3>Karachi Nights</h3>
+          <p class="cast">Fahad Mustafa · Iqra Aziz · Nauman Ijaz</p>
+          <p>A taxi driver, a courtroom stenographer and a stolen ledger. Three nights across the city, told out of order.</p>
+        </article>
+        <article class="film f5">
+          <h3>Paper Planes</h3>
+          <p class="cast">Hamza Ali Abbasi · Ayeza Khan</p>
+          <p>A school in Skardu enters a national paper-plane contest with nothing but old exam sheets and a very windy playground.</p>
+        </article>
+
+        <div class="times" role="group" aria-label="Showtimes">
+          <input type="radio" name="time" id="t1" class="vh"><label for="t1">12:30</label>
+          <input type="radio" name="time" id="t2" class="vh" checked><label for="t2">15:45</label>
+          <input type="radio" name="time" id="t3" class="vh"><label for="t3" class="few">18:30<small>few seats left</small></label>
+          <input type="radio" name="time" id="t4" class="vh" disabled><label for="t4" class="sold">21:15<small>sold out</small></label>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ BOOKING -->
+    <section class="booking">
+      <div class="left">
+        <div class="section-title"><h2>Pick your seats</h2><span class="hint">Screen 3 · Dolby Atmos</span></div>
+
+        <div class="screen" aria-hidden="true"><span>SCREEN</span></div>
+
+        <div class="seatmap">
+          <div class="row"><span class="row-label">A</span>
+            <input type="checkbox" id="s-A1" class="seat-input"><label for="s-A1" class="seat" title="Seat A1"><span>1</span></label>
+            <input type="checkbox" id="s-A2" class="seat-input"><label for="s-A2" class="seat" title="Seat A2"><span>2</span></label>
+            <input type="checkbox" id="s-A3" class="seat-input" disabled><label for="s-A3" class="seat" title="Seat A3"><span>3</span></label>
+            <input type="checkbox" id="s-A4" class="seat-input" disabled><label for="s-A4" class="seat" title="Seat A4"><span>4</span></label>
+            <input type="checkbox" id="s-A5" class="seat-input"><label for="s-A5" class="seat" title="Seat A5"><span>5</span></label>
+            <input type="checkbox" id="s-A6" class="seat-input"><label for="s-A6" class="seat" title="Seat A6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-A7" class="seat-input"><label for="s-A7" class="seat" title="Seat A7"><span>7</span></label>
+            <input type="checkbox" id="s-A8" class="seat-input"><label for="s-A8" class="seat" title="Seat A8"><span>8</span></label>
+            <input type="checkbox" id="s-A9" class="seat-input"><label for="s-A9" class="seat" title="Seat A9"><span>9</span></label>
+            <input type="checkbox" id="s-A10" class="seat-input"><label for="s-A10" class="seat" title="Seat A10"><span>10</span></label>
+            <input type="checkbox" id="s-A11" class="seat-input"><label for="s-A11" class="seat" title="Seat A11"><span>11</span></label>
+            <input type="checkbox" id="s-A12" class="seat-input"><label for="s-A12" class="seat" title="Seat A12"><span>12</span></label>
+          <span class="row-label">A</span></div>
+          <div class="row"><span class="row-label">B</span>
+            <input type="checkbox" id="s-B1" class="seat-input"><label for="s-B1" class="seat" title="Seat B1"><span>1</span></label>
+            <input type="checkbox" id="s-B2" class="seat-input"><label for="s-B2" class="seat" title="Seat B2"><span>2</span></label>
+            <input type="checkbox" id="s-B3" class="seat-input"><label for="s-B3" class="seat" title="Seat B3"><span>3</span></label>
+            <input type="checkbox" id="s-B4" class="seat-input"><label for="s-B4" class="seat" title="Seat B4"><span>4</span></label>
+            <input type="checkbox" id="s-B5" class="seat-input"><label for="s-B5" class="seat" title="Seat B5"><span>5</span></label>
+            <input type="checkbox" id="s-B6" class="seat-input"><label for="s-B6" class="seat" title="Seat B6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-B7" class="seat-input" disabled><label for="s-B7" class="seat" title="Seat B7"><span>7</span></label>
+            <input type="checkbox" id="s-B8" class="seat-input"><label for="s-B8" class="seat" title="Seat B8"><span>8</span></label>
+            <input type="checkbox" id="s-B9" class="seat-input"><label for="s-B9" class="seat" title="Seat B9"><span>9</span></label>
+            <input type="checkbox" id="s-B10" class="seat-input"><label for="s-B10" class="seat" title="Seat B10"><span>10</span></label>
+            <input type="checkbox" id="s-B11" class="seat-input" disabled><label for="s-B11" class="seat" title="Seat B11"><span>11</span></label>
+            <input type="checkbox" id="s-B12" class="seat-input"><label for="s-B12" class="seat" title="Seat B12"><span>12</span></label>
+          <span class="row-label">B</span></div>
+          <div class="row"><span class="row-label">C</span>
+            <input type="checkbox" id="s-C1" class="seat-input"><label for="s-C1" class="seat" title="Seat C1"><span>1</span></label>
+            <input type="checkbox" id="s-C2" class="seat-input" disabled><label for="s-C2" class="seat" title="Seat C2"><span>2</span></label>
+            <input type="checkbox" id="s-C3" class="seat-input"><label for="s-C3" class="seat" title="Seat C3"><span>3</span></label>
+            <input type="checkbox" id="s-C4" class="seat-input"><label for="s-C4" class="seat" title="Seat C4"><span>4</span></label>
+            <input type="checkbox" id="s-C5" class="seat-input"><label for="s-C5" class="seat" title="Seat C5"><span>5</span></label>
+            <input type="checkbox" id="s-C6" class="seat-input"><label for="s-C6" class="seat" title="Seat C6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-C7" class="seat-input"><label for="s-C7" class="seat" title="Seat C7"><span>7</span></label>
+            <input type="checkbox" id="s-C8" class="seat-input"><label for="s-C8" class="seat" title="Seat C8"><span>8</span></label>
+            <input type="checkbox" id="s-C9" class="seat-input" disabled><label for="s-C9" class="seat" title="Seat C9"><span>9</span></label>
+            <input type="checkbox" id="s-C10" class="seat-input" disabled><label for="s-C10" class="seat" title="Seat C10"><span>10</span></label>
+            <input type="checkbox" id="s-C11" class="seat-input"><label for="s-C11" class="seat" title="Seat C11"><span>11</span></label>
+            <input type="checkbox" id="s-C12" class="seat-input"><label for="s-C12" class="seat" title="Seat C12"><span>12</span></label>
+          <span class="row-label">C</span></div>
+          <div class="row"><span class="row-label">D</span>
+            <input type="checkbox" id="s-D1" class="seat-input"><label for="s-D1" class="seat" title="Seat D1"><span>1</span></label>
+            <input type="checkbox" id="s-D2" class="seat-input"><label for="s-D2" class="seat" title="Seat D2"><span>2</span></label>
+            <input type="checkbox" id="s-D3" class="seat-input"><label for="s-D3" class="seat" title="Seat D3"><span>3</span></label>
+            <input type="checkbox" id="s-D4" class="seat-input"><label for="s-D4" class="seat premium" title="Seat D4"><span>4</span></label>
+            <input type="checkbox" id="s-D5" class="seat-input"><label for="s-D5" class="seat premium" title="Seat D5"><span>5</span></label>
+            <input type="checkbox" id="s-D6" class="seat-input" disabled><label for="s-D6" class="seat premium" title="Seat D6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-D7" class="seat-input"><label for="s-D7" class="seat premium" title="Seat D7"><span>7</span></label>
+            <input type="checkbox" id="s-D8" class="seat-input"><label for="s-D8" class="seat premium" title="Seat D8"><span>8</span></label>
+            <input type="checkbox" id="s-D9" class="seat-input"><label for="s-D9" class="seat premium" title="Seat D9"><span>9</span></label>
+            <input type="checkbox" id="s-D10" class="seat-input"><label for="s-D10" class="seat" title="Seat D10"><span>10</span></label>
+            <input type="checkbox" id="s-D11" class="seat-input"><label for="s-D11" class="seat" title="Seat D11"><span>11</span></label>
+            <input type="checkbox" id="s-D12" class="seat-input"><label for="s-D12" class="seat" title="Seat D12"><span>12</span></label>
+          <span class="row-label">D</span></div>
+          <div class="row"><span class="row-label">E</span>
+            <input type="checkbox" id="s-E1" class="seat-input"><label for="s-E1" class="seat" title="Seat E1"><span>1</span></label>
+            <input type="checkbox" id="s-E2" class="seat-input"><label for="s-E2" class="seat" title="Seat E2"><span>2</span></label>
+            <input type="checkbox" id="s-E3" class="seat-input"><label for="s-E3" class="seat" title="Seat E3"><span>3</span></label>
+            <input type="checkbox" id="s-E4" class="seat-input"><label for="s-E4" class="seat premium" title="Seat E4"><span>4</span></label>
+            <input type="checkbox" id="s-E5" class="seat-input" disabled><label for="s-E5" class="seat premium" title="Seat E5"><span>5</span></label>
+            <input type="checkbox" id="s-E6" class="seat-input" checked><label for="s-E6" class="seat premium" title="Seat E6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-E7" class="seat-input" checked><label for="s-E7" class="seat premium" title="Seat E7"><span>7</span></label>
+            <input type="checkbox" id="s-E8" class="seat-input" disabled><label for="s-E8" class="seat premium" title="Seat E8"><span>8</span></label>
+            <input type="checkbox" id="s-E9" class="seat-input"><label for="s-E9" class="seat premium" title="Seat E9"><span>9</span></label>
+            <input type="checkbox" id="s-E10" class="seat-input"><label for="s-E10" class="seat" title="Seat E10"><span>10</span></label>
+            <input type="checkbox" id="s-E11" class="seat-input"><label for="s-E11" class="seat" title="Seat E11"><span>11</span></label>
+            <input type="checkbox" id="s-E12" class="seat-input"><label for="s-E12" class="seat" title="Seat E12"><span>12</span></label>
+          <span class="row-label">E</span></div>
+          <div class="row"><span class="row-label">F</span>
+            <input type="checkbox" id="s-F1" class="seat-input" disabled><label for="s-F1" class="seat" title="Seat F1"><span>1</span></label>
+            <input type="checkbox" id="s-F2" class="seat-input"><label for="s-F2" class="seat" title="Seat F2"><span>2</span></label>
+            <input type="checkbox" id="s-F3" class="seat-input"><label for="s-F3" class="seat" title="Seat F3"><span>3</span></label>
+            <input type="checkbox" id="s-F4" class="seat-input"><label for="s-F4" class="seat" title="Seat F4"><span>4</span></label>
+            <input type="checkbox" id="s-F5" class="seat-input"><label for="s-F5" class="seat" title="Seat F5"><span>5</span></label>
+            <input type="checkbox" id="s-F6" class="seat-input" checked><label for="s-F6" class="seat" title="Seat F6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-F7" class="seat-input"><label for="s-F7" class="seat" title="Seat F7"><span>7</span></label>
+            <input type="checkbox" id="s-F8" class="seat-input"><label for="s-F8" class="seat" title="Seat F8"><span>8</span></label>
+            <input type="checkbox" id="s-F9" class="seat-input"><label for="s-F9" class="seat" title="Seat F9"><span>9</span></label>
+            <input type="checkbox" id="s-F10" class="seat-input"><label for="s-F10" class="seat" title="Seat F10"><span>10</span></label>
+            <input type="checkbox" id="s-F11" class="seat-input"><label for="s-F11" class="seat" title="Seat F11"><span>11</span></label>
+            <input type="checkbox" id="s-F12" class="seat-input" disabled><label for="s-F12" class="seat" title="Seat F12"><span>12</span></label>
+          <span class="row-label">F</span></div>
+          <div class="row"><span class="row-label">G</span>
+            <input type="checkbox" id="s-G1" class="seat-input"><label for="s-G1" class="seat" title="Seat G1"><span>1</span></label>
+            <input type="checkbox" id="s-G2" class="seat-input"><label for="s-G2" class="seat" title="Seat G2"><span>2</span></label>
+            <input type="checkbox" id="s-G3" class="seat-input"><label for="s-G3" class="seat" title="Seat G3"><span>3</span></label>
+            <input type="checkbox" id="s-G4" class="seat-input" disabled><label for="s-G4" class="seat" title="Seat G4"><span>4</span></label>
+            <input type="checkbox" id="s-G5" class="seat-input" disabled><label for="s-G5" class="seat" title="Seat G5"><span>5</span></label>
+            <input type="checkbox" id="s-G6" class="seat-input"><label for="s-G6" class="seat" title="Seat G6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-G7" class="seat-input"><label for="s-G7" class="seat" title="Seat G7"><span>7</span></label>
+            <input type="checkbox" id="s-G8" class="seat-input"><label for="s-G8" class="seat" title="Seat G8"><span>8</span></label>
+            <input type="checkbox" id="s-G9" class="seat-input"><label for="s-G9" class="seat" title="Seat G9"><span>9</span></label>
+            <input type="checkbox" id="s-G10" class="seat-input"><label for="s-G10" class="seat" title="Seat G10"><span>10</span></label>
+            <input type="checkbox" id="s-G11" class="seat-input"><label for="s-G11" class="seat" title="Seat G11"><span>11</span></label>
+            <input type="checkbox" id="s-G12" class="seat-input"><label for="s-G12" class="seat" title="Seat G12"><span>12</span></label>
+          <span class="row-label">G</span></div>
+          <div class="row"><span class="row-label">H</span>
+            <input type="checkbox" id="s-H1" class="seat-input"><label for="s-H1" class="seat" title="Seat H1"><span>1</span></label>
+            <input type="checkbox" id="s-H2" class="seat-input"><label for="s-H2" class="seat" title="Seat H2"><span>2</span></label>
+            <input type="checkbox" id="s-H3" class="seat-input"><label for="s-H3" class="seat" title="Seat H3"><span>3</span></label>
+            <input type="checkbox" id="s-H4" class="seat-input"><label for="s-H4" class="seat" title="Seat H4"><span>4</span></label>
+            <input type="checkbox" id="s-H5" class="seat-input"><label for="s-H5" class="seat" title="Seat H5"><span>5</span></label>
+            <input type="checkbox" id="s-H6" class="seat-input"><label for="s-H6" class="seat" title="Seat H6"><span>6</span></label>
+            <span class="aisle"></span>
+            <input type="checkbox" id="s-H7" class="seat-input"><label for="s-H7" class="seat" title="Seat H7"><span>7</span></label>
+            <input type="checkbox" id="s-H8" class="seat-input" disabled><label for="s-H8" class="seat" title="Seat H8"><span>8</span></label>
+            <input type="checkbox" id="s-H9" class="seat-input"><label for="s-H9" class="seat" title="Seat H9"><span>9</span></label>
+            <input type="checkbox" id="s-H10" class="seat-input"><label for="s-H10" class="seat" title="Seat H10"><span>10</span></label>
+            <input type="checkbox" id="s-H11" class="seat-input"><label for="s-H11" class="seat" title="Seat H11"><span>11</span></label>
+            <input type="checkbox" id="s-H12" class="seat-input"><label for="s-H12" class="seat" title="Seat H12"><span>12</span></label>
+          <span class="row-label">H</span></div>
+        </div>
+
+        <ul class="legend" aria-label="Seat legend">
+          <li><i class="k free"></i>Standard · PKR 650</li>
+          <li><i class="k prem"></i>Premium · PKR 950</li>
+          <li><i class="k sel"></i>Selected</li>
+          <li><i class="k taken"></i>Taken</li>
+        </ul>
+
+        <!-- ============================================================ SNACKS -->
+        <div class="section-title snacks-title"><h2>Add snacks</h2><span class="hint">collect at counter 2</span></div>
+        <div class="snacks">
+          <input type="checkbox" id="k1" class="vh" checked>
+          <label for="k1" class="snack">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 18h28l-3 24H13z" fill="#f4ecd8"/><path d="M14 18l2.5 24M20 18l1 24M28 18l-1 24M34 18l-2.5 24" stroke="#c9302c" stroke-width="3"/><circle cx="16" cy="13" r="5" fill="#f2b134"/><circle cx="25" cy="10" r="5.5" fill="#f2b134"/><circle cx="34" cy="13" r="5" fill="#f2b134"/><circle cx="21" cy="15" r="4" fill="#ffe08a"/><circle cx="30" cy="16" r="4" fill="#ffe08a"/></svg>
+            <span class="sname">Popcorn <small>large · salted</small></span>
+            <span class="sprice">+450</span>
+          </label>
+
+          <input type="checkbox" id="k2" class="vh">
+          <label for="k2" class="snack">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 20l16-12 16 12-6 22H14z" fill="#f4ecd8"/><path d="M24 8l6 34M24 8L18 42" stroke="#e0c98a" stroke-width="2"/><ellipse cx="24" cy="30" rx="7" ry="4" fill="#f2b134"/><circle cx="18" cy="24" r="2.5" fill="#c9302c"/><circle cx="31" cy="22" r="2.5" fill="#c9302c"/></svg>
+            <span class="sname">Nachos <small>cheese · jalapeño</small></span>
+            <span class="sprice">+550</span>
+          </label>
+
+          <input type="checkbox" id="k3" class="vh">
+          <label for="k3" class="snack">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 10h20l-3 32H17z" fill="#f4ecd8"/><path d="M15.5 22h17" stroke="#c9302c" stroke-width="4"/><path d="M26 4l-4 14" stroke="#f2b134" stroke-width="3" stroke-linecap="round"/><circle cx="21" cy="30" r="2" fill="#ddd"/><circle cx="27" cy="35" r="1.5" fill="#ddd"/></svg>
+            <span class="sname">Drink <small>500 ml · any</small></span>
+            <span class="sprice">+250</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ============================================================ TICKET -->
+      <aside class="ticket-wrap">
+        <div class="slot" aria-hidden="true"></div>
+        <div class="ticket">
+          <div class="t-top">
+            <p class="t-label">Admit</p>
+            <p class="t-film"></p>
+            <dl class="t-grid">
+              <div><dt>Date</dt><dd class="t-date"></dd></div>
+              <div><dt>Time</dt><dd class="t-time"></dd></div>
+              <div><dt>Screen</dt><dd>03</dd></div>
+              <div><dt>Seats</dt><dd class="t-seats"></dd></div>
+            </dl>
+            <p class="t-total"><span>Total</span><b class="t-amount"></b></p>
+            <button type="button" class="pay">Pay <span class="pay-amount"></span></button>
+          </div>
+          <div class="tear" aria-hidden="true"></div>
+          <div class="t-stub">
+            <div class="qr" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+            <div class="stub-text">
+              <p class="t-label">Booking ID</p>
+              <p class="bid">RC-2609-4471</p>
+              <div class="barcode" aria-hidden="true"></div>
+              <p class="tiny">Present this at the door · Screen 3</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <span>Tickets are non-refundable</span><i>·</i>
+    <span>Show up 15 minutes early</span><i>·</i>
+    <span>Screen 3, Dolby Atmos</span>
+  </footer>
+</body>
+</html>
